@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 namespace MatchGame
 {
+    using SQLite;
     using System.Windows.Threading;
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -41,6 +42,7 @@ namespace MatchGame
             if (matchesFound == 8)
             {
                 timer.Stop();
+                SaveTime(tenthsOfSecondsElapsed);
                 timeTextBlock.Text = timeTextBlock.Text + " - Play again?";
             }
         }
@@ -75,7 +77,29 @@ namespace MatchGame
                 timer.Start();
                 tenthsOfSecondsElapsed = 0;
                 matchesFound = 0;
+
+                GetFastestTime();
             }
+        }
+
+
+        private GameModel fastestTime;
+
+        private void GetFastestTime()
+        {
+            using (SQLiteConnection connection = new(App.databasePath))
+            {
+                fastestTime = connection.Table<GameModel>().OrderBy(i => i.GameTime).FirstOrDefault();
+            }
+            if(fastestTime != null)
+            {
+                scoreLabel.Content = $"{fastestTime.GameTime / 10} seconds";
+            }
+            else
+            {
+                scoreLabel.Content = 0;
+            }
+            
         }
 
         TextBlock lastTextBlockClicked;
@@ -108,6 +132,16 @@ namespace MatchGame
             if (matchesFound == 8)
             {
                 SetUpGame();
+            }
+        }
+
+        private void SaveTime(double gameTime)
+        {
+            GameModel game = new() { GameTime = gameTime };
+            using(SQLiteConnection connection = new (App.databasePath))
+            {
+                connection.CreateTable<GameModel>();
+                connection.Insert(game);
             }
         }
     }

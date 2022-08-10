@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MatchGame"
         mc:Ignorable="d"
-        Title="Find all of the matching animal" Height="450" Width="400">
-    <Grid x:Name="mainGrid" >
+        Title="Find all of the matching animal" Height="450" Width="400"
+        Background="#515230">
+    <Grid x:Name="mainGrid" Background="#A5A162" Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -101,12 +102,16 @@
                    Text="?" 
                    VerticalAlignment="Center" 
                    FontSize="36" MouseDown="TextBlock_MouseDown"/>
-        <StackPanel Grid.Row="4" Grid.ColumnSpan="4">
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="4" Background="Wheat">
             <TextBlock  HorizontalAlignment="Center"
                    VerticalAlignment="Center" FontSize="36"
                    Text="Elasped time" MouseDown="TimeTextBlock_MouseDown"
                    x:Name="timeTextBlock"/>
-            <Label Content="Fastest time" x:Name="scoreLabel"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Fastest time:"
+                       FontWeight="SemiBold"/>
+                <Label x:Name="scoreLabel" Content="0"/>
+            </StackPanel>
         </StackPanel>
         
     </Grid>

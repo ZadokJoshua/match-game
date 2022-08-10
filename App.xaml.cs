@@ -9,8 +9,8 @@ namespace MatchGame
     /// </summary>
     public partial class App : Application
     {
-        public static string databaseName = "MatchGame.db";
-        public static string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        public static string databasePath = Path.Combine(folderPath, databaseName);
+        public readonly static string databaseName = "MatchGame.db";
+        public readonly static string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        public readonly static string databasePath = Path.Combine(folderPath, databaseName);
     }
 }

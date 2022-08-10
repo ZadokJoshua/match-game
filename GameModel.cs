@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace MatchGame
 {
-    [Table("GameRecords")]
     public class GameModel
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        public double FastestTime { get; set; }
+        public double GameTime { get; set; }
     }
 }
